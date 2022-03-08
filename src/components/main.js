@@ -10,7 +10,10 @@ export default class Main extends Component {
 
 
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 06302a2 (local storage)
     handleSubmit = (e) => {
         e.preventDefault();
         const { tarefas, index } = this.state;
