@@ -9,6 +9,7 @@ function App() {
         <p>
           Hello word!
         </p>
+        <p>lorem</p>
         <a
           className="App-link"
           href="https://reactjs.org"
