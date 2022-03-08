@@ -2,17 +2,29 @@ import React, { Component } from "react";
 //form
 import { FaPlus } from 'react-icons/fa'
 //tarefas
-import { FaEdit , FaWindowClose } from 'react-icons/fa'
+import { FaEdit, FaWindowClose } from 'react-icons/fa'
 
 import './main.css'
 export default class Main extends Component {
     state = {
         novaTarefa: '',
-        tarefas: [
-            'fazer cafe', 'estudar js', 'estudar react',
-        ]
+        tarefas: []
+
 
     };
+    handleSubmit = (e) => {
+     e.preventDefault();
+     const { tarefas } = this.state;
+     let {novaTarefa} = this.state;
+     novaTarefa = novaTarefa.trim();
+
+     if (tarefas.indexOf(novaTarefa) !== -1) return;
+
+     const novasTarefas = [ ...tarefas];
+     this.setState({
+         tarefas: [...novasTarefas, novaTarefa]
+     })
+    }
     handleChange = (e) => {
         this.setState({
             novaTarefa: e.target.value,
@@ -26,7 +38,7 @@ export default class Main extends Component {
             <div className="main">
                 <h1>lista de tarefas</h1>
 
-                <form className="form" action="#">
+                <form onSubmit={this.handleSubmit} className="form" action="#">
                     <input value={novaTarefa} className="inp" onChange={this.handleChange} type='text' />
 
                     <button className="btn" type="submit"><FaPlus /></button>
@@ -37,10 +49,12 @@ export default class Main extends Component {
                         <li key={tarefa}>
                             {tarefa}
                             <div>
-                                <FaEdit className="edit"/>
-                           <FaWindowClose className="delete"/>
+                                <span>
+                                    <FaEdit className="edit" />
+                                    <FaWindowClose className="delete" />
+                                </span>
                             </div>
-                            </li>
+                        </li>
                     ))}
                 </ul>
             </div>
