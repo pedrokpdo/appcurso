@@ -10,22 +10,7 @@ export default class Main extends Component {
 
 
     };
-<<<<<<< HEAD
-    componentDidMount() {
-        const tarefas = JSON.parse(localStorage.getItem('tarefas'))
-        if (!tarefas) return;
-        this.setState({ tarefas })
 
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        const { tarefas } = this.state;
-        if (tarefas === prevState.tarefas) return;
-        localStorage.setItem('tarefas', JSON.stringify(tarefas));
-
-    }
-=======
->>>>>>> parent of 06302a2 (local storage)
     handleSubmit = (e) => {
         e.preventDefault();
         const { tarefas, index } = this.state;
