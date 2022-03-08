@@ -8,22 +8,36 @@ import './main.css'
 export default class Main extends Component {
     state = {
         novaTarefa: '',
-        tarefas: []
+        tarefas: [],
+        index: -1,
 
 
     };
     handleSubmit = (e) => {
         e.preventDefault();
-        const { tarefas } = this.state;
+        const { tarefas, index } = this.state;
         let { novaTarefa } = this.state;
         novaTarefa = novaTarefa.trim();
 
         if (tarefas.indexOf(novaTarefa) !== -1) return;
 
         const novasTarefas = [...tarefas];
-        this.setState({
-            tarefas: [...novasTarefas, novaTarefa]
-        })
+        if (index === -1) {
+            this.setState({
+                tarefas: [...novasTarefas, novaTarefa],
+                novaTarefa: '',
+            });
+        } else {
+            novasTarefas[index] = novaTarefa;
+            this.setState({
+                tarefas: [...novasTarefas],
+                index: -1,
+            })
+
+        }
+
+
+
     }
     handleChange = (e) => {
         this.setState({
@@ -32,17 +46,22 @@ export default class Main extends Component {
 
     }
     handleEdit = (e, index) => {
-        console.log('edit', index);
+        const { tarefas } = this.state;
+        this.setState({
+            index,
+            novaTarefa: tarefas[index]
+        })
+
 
     }
     handleDelete = (e, index) => {
-       const { tarefas } = this.state 
-       const novasTarefas = [...tarefas];
-       novasTarefas.splice (index, 1)
-       this.setState({
-           tarefas:[...novasTarefas],
-           
-       })
+        const { tarefas } = this.state
+        const novasTarefas = [...tarefas];
+        novasTarefas.splice(index, 1)
+        this.setState({
+            tarefas: [...novasTarefas],
+
+        })
 
     }
     render() {
@@ -65,7 +84,7 @@ export default class Main extends Component {
                             <div>
                                 <span>
                                     <FaEdit onClick={(e) => this.handleEdit(e, index)} className="edit" />
-                                    <FaWindowClose  onClick={(e) => this.handleDelete(e, index)} className="delete" />
+                                    <FaWindowClose onClick={(e) => this.handleDelete(e, index)} className="delete" />
                                 </span>
                             </div>
                         </li>
